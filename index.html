@@ -1,0 +1,131 @@
+<!DOCTYPE html>
+<html lang="pl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title><3</title>
+    <style>
+        body {
+            margin: 0;
+            padding: 0;
+            height: 100vh;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            background-color: #f0f0f0;
+            overflow: hidden;
+            position: relative;
+        }
+
+        #button {
+            padding: 20px 40px;
+            font-size: 24px;
+            border: none;
+            background-color: #ff69b4;
+            color: white;
+            border-radius: 12px;
+            cursor: pointer;
+            z-index: 1000;
+            background-image: linear-gradient(45deg, red, orange, yellow, green, blue, indigo, violet);
+            background-size: 400%;
+            animation: rainbow 15s linear infinite; /* Dodanie animacji */
+        }
+
+        /* Animacja tęczowa */
+        @keyframes rainbow {
+            0% {
+                background-position: 0%;
+            }
+            100% {
+                background-position: 400%;
+            }
+        }
+
+        .emoji {
+            position: absolute;
+            font-size: 92px;
+            animation: fall 4s linear infinite;
+        }
+
+        @keyframes fall {
+            0% {
+                transform: translateY(-100vh);
+                opacity: 1;
+            }
+            100% {
+                transform: translateY(100vh);
+                opacity: 0;
+            }
+        }
+
+        /* Styl do tła z emotkami */
+        .background-emoji {
+            position: absolute;
+            font-size: 94px;
+            opacity: 0.7;
+            animation: float 10s infinite ease-in-out;
+        }
+
+        @keyframes float {
+            0% {
+                transform: translateY(100vh);
+            }
+            100% {
+                transform: translateY(-100vh);
+            }
+        }
+    </style>
+</head>
+<body>
+
+    <button id="button">🌧️ Kliknij mnie 🌧️</button>
+
+    <script>
+        // Tablica z emotkami do przycisku i tła
+        const emojis = ['😸', '😺', '😻', '😹', '😽', '😼', '🙀', '😾', '😿', '🐱', '🌸', '✨', '💖'];
+
+        // Obsługa kliknięcia przycisku - tworzenie deszczu emotek
+        const button = document.getElementById('button');
+        button.addEventListener('click', () => {
+            for (let i = 0; i < 30; i++) {
+                createEmojiRain();
+            }
+        });
+
+        function createEmojiRain() {
+            const emoji = document.createElement('div');
+            emoji.classList.add('emoji');
+            emoji.textContent = emojis[Math.floor(Math.random() * emojis.length)];
+            emoji.style.left = Math.random() * 100 + 'vw';
+            emoji.style.fontSize = Math.random() * 24 + 24 + 'px'; // losowa wielkość
+            emoji.style.animationDuration = Math.random() * 3 + 2 + 's'; // czas trwania animacji
+            document.body.appendChild(emoji);
+
+            setTimeout(() => {
+                emoji.remove();
+            }, 50000); // usuwa emotkę po 50 sekundach
+        }
+
+        // Funkcja tworząca losowe emotki w tle
+        function createBackgroundEmoji() {
+            const emoji = document.createElement('div');
+            emoji.classList.add('background-emoji');
+            emoji.textContent = emojis[Math.floor(Math.random() * emojis.length)];
+            emoji.style.left = Math.random() * 100 + 'vw';
+            emoji.style.fontSize = Math.random() * 24 + 24 + 'px'; // losowa wielkość
+            emoji.style.animationDuration = Math.random() * 5 + 5 + 's'; // czas trwania animacji
+            emoji.style.opacity = Math.random() * 0.5 + 0.5; // losowa przezroczystość
+            document.body.appendChild(emoji);
+
+            // Usuń emotki po zakończeniu animacji
+            setTimeout(() => {
+                emoji.remove();
+            }, 30000);
+        }
+
+        // Twórz emotki w tle co 300 ms
+        setInterval(createBackgroundEmoji, 300);
+    </script>
+
+</body>
+</html>
